@@ -3,21 +3,31 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        
+        $user = User::updateOrCreate(['email' => 'admin@example.com'], [
+            'name' => 'Laila Admin',
+            'password' => Hash::make('password123'),
         ]);
+
+        
+        DB::table('teams')->updateOrInsert(
+            ['slug' => 'marketing'],
+            [
+                'name' => 'Marketing',
+                'user_id' => $user->id,
+                'personal_team' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
     }
 }
