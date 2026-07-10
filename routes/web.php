@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TodoController; // Added TodoController
 use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
 
 // 1. All Authenticated & Protected Routes
@@ -14,7 +15,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'cache.headers:private;max_age=0;must_revalidate' // Applies cache control to everything in this block
+    'cache.headers:private;max_age=0;must_revalidate' 
 ])->group(function () {
 
     // Dashboard
@@ -38,18 +39,21 @@ Route::middleware([
     Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::resource('users', UserController::class);
 
-    
-    // 2. Public / Unauthenticated Routes
-    Route::get('/send-test-email', function () {
-        Mail::to('lailaabdurahman2206@gmail.com')->send(new TestEmail());
-        return 'Test email sent!';
-        });
+    // --- TO-DO LIST ROUTES ---
+    Route::view('/todos/create', 'todos.create')->name('todos.create');
+    Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
 
-        // Logout Route
-        Route::post('/logout', function () {
-            Auth::guard('web')->logout();
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
-            return redirect('/login'); 
-        })->name('logout');
-    });
+    // Logout Route
+    Route::post('/logout', function () {
+        Auth::guard('web')->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/login'); 
+    })->name('logout');
+}); 
+
+// 2. Public / Unauthenticated Routes
+Route::get('/send-test-email', function () {
+    Mail::to('lailaabdurahman2206@gmail.com')->send(new TestEmail());
+    return 'Test email sent!';
+});

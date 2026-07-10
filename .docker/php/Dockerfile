@@ -43,6 +43,9 @@ RUN apt-get install -y nodejs
 RUN npm install npm@latest -g
 RUN npm install yarn -g
 
+# Supervisor
+RUN apt-get install supervisor -y
+
 # Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
