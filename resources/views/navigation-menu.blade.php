@@ -16,6 +16,10 @@
                         {{ __('Users') }}
                     </x-nav-link>
                     
+                    <x-nav-link href="{{ route('todos.index') }}" :active="request()->routeIs('todos.index')">
+                        {{ __('Todo List') }}
+                    </x-nav-link>
+
                     @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="hidden sm:flex sm:items-center">
                         <x-dropdown align="left" width="48">
@@ -82,6 +86,8 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">Users</x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('todos.index') }}" :active="request()->routeIs('todos.*')">Todo List</x-responsive-nav-link>
+            
             @if (Auth::user()->currentTeam)
             <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">Teams</x-responsive-nav-link>
             @endif

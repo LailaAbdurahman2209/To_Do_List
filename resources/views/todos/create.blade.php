@@ -1,30 +1,36 @@
-<form action="/todos" method="POST" id="todoForm">
-    @csrf
-    
-    <label>Task Description:</label>
-    <input type="text" name="description" required>
+<x-app-layout>
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Add New Task</h2>
 
-    <label>Date:</label>
-    <input type="date" id="task_date" required>
-    
-    <label>Time:</label>
-    <input type="time" id="task_time" required>
+                <form action="{{ route('todos.store') }}" method="POST">
+                    @csrf
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <input type="text" name="description" required class="w-full mt-1 border-gray-300 rounded-md shadow-sm">
+                    </div>
 
-    <input type="hidden" name="scheduled_at_string" id="final_datetime">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Assign To</label>
+                        <select name="user_id" required class="w-full mt-1 border-gray-300 rounded-md shadow-sm">
+                            @foreach (\App\Models\User::all() as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-    <button type="submit" onclick="prepareDateTimeString()">Add Task</button>
-</form>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Scheduled Time</label>
+                        <input type="datetime-local" name="scheduled_at" required class="w-full mt-1 border-gray-300 rounded-md shadow-sm">
+                    </div>
 
-<script>
-function prepareDateTimeString() {
-    // Grab the date and time from the calendar inputs
-    let date = document.getElementById('task_date').value;
-    let time = document.getElementById('task_time').value;
-    
-    // Combine them into one string (e.g., "2026-07-10 14:30:00")
-    let combinedString = date + ' ' + time + ':00';
-    
-    // Inject the string into the hidden input so it goes to the backend
-    document.getElementById('final_datetime').value = combinedString;
-}
-</script>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                        Save Task
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

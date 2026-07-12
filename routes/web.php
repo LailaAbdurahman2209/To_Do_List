@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
-use App\Http\Controllers\TodoController; // Added TodoController
+use App\Http\Controllers\TodoController; 
 use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
 
 // 1. All Authenticated & Protected Routes
@@ -40,7 +40,11 @@ Route::middleware([
     Route::resource('users', UserController::class);
 
     // --- TO-DO LIST ROUTES ---
-    Route::view('/todos/create', 'todos.create')->name('todos.create');
+    // This allows your nav link to work
+    Route::get('/todos', [TodoController::class, 'index'])->name('todos.index');
+    
+    // This handles the form page and the saving of data
+    Route::get('/todos/create', [TodoController::class, 'create'])->name('todos.create');
     Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
 
     // Logout Route
