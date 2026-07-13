@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('todos', function (Blueprint $table) {
-            // Adds a nullable integer column for the custom reminder time
+            
             $table->integer('reminder_minutes')->nullable()->after('email_sent');
         });
     }

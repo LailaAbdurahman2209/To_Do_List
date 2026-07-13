@@ -15,7 +15,7 @@ class Todo extends Model
         'reminder_minutes'
     ];
 
-    // Added 'reminder_minutes' to automatic casting
+    
     protected $casts = [
         'scheduled_at' => 'datetime',
         'email_sent' => 'boolean',
