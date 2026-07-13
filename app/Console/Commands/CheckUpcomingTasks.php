@@ -15,11 +15,9 @@ class CheckUpcomingTasks extends Command
 
     public function handle()
     {
-        // Calculate the 5-minute window
         $now = Carbon::now();
         $targetTime = $now->copy()->addMinutes(5);
 
-        // Find pending tasks in that window
         $tasks = Todo::where('email_sent', false)
             ->where('scheduled_at', '>=', $targetTime->copy()->subSeconds(30))
             ->where('scheduled_at', '<=', $targetTime->copy()->addSeconds(30))
@@ -35,3 +33,4 @@ class CheckUpcomingTasks extends Command
             }
         }
     }
+}
