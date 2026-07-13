@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         
         Gate::define('manage-operations', function (User $user) {
-            return $user->currentTeam && $user->currentTeam->name === 'BossLady';
+            return (bool) $user->is_admin;
         });
     }
 }

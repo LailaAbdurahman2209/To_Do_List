@@ -1,0 +1,46 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#8482
+    [34mall[39m: [
+      [34;4mApp\Models\User[39;24m {#8474
+        [34mid[39m: [35m14[39m,
+        [34mname[39m: [32m"[39m[32mLaila Abdurahman[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32madmin@company.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=L+A&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8933
+        [34mid[39m: [35m21[39m,
+        [34mname[39m: [32m"[39m[32mTasneem[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mtasneem23@gmail.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=T&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8932
+        [34mid[39m: [35m22[39m,
+        [34mname[39m: [32m"[39m[32mReza[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mReza21@gmail.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=R&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8931
+        [34mid[39m: [35m23[39m,
+        [34mname[39m: [32m"[39m[32mAisha[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mAisha@gmail.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=A&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8930
+        [34mid[39m: [35m26[39m,
+        [34mname[39m: [32m"[39m[32mRobby[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mRobby12@gmail.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=R&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8929
+        [34mid[39m: [35m29[39m,
+        [34mname[39m: [32m"[39m[32mJoshua Zeenie[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mjoshua.zeelie@gmail.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=J+Z&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8928
+        [34mid[39m: [35m30[39m,
+        [34mname[39m: [32m"[39m[32mZahra[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mlailaabdurahman2206@gmail.com[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=Z&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+    ],
+  }

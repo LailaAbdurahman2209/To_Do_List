@@ -1,0 +1,32 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#8933
+    [34mall[39m: [
+      [34;4mApp\Models\Team[39;24m {#8913
+        [34mid[39m: [35m7[39m,
+        [34mname[39m: [32m"[39m[32mMarketing Specialist[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Team[39;24m {#8912
+        [34mid[39m: [35m15[39m,
+        [34mname[39m: [32m"[39m[32mWeekend_crew[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Team[39;24m {#8911
+        [34mid[39m: [35m17[39m,
+        [34mname[39m: [32m"[39m[32mPhotographers[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Team[39;24m {#8910
+        [34mid[39m: [35m20[39m,
+        [34mname[39m: [32m"[39m[32mEvents_Team[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Team[39;24m {#8909
+        [34mid[39m: [35m27[39m,
+        [34mname[39m: [32m"[39m[32mSoftware_development[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Team[39;24m {#8908
+        [34mid[39m: [35m29[39m,
+        [34mname[39m: [32m"[39m[32mTrainees[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Team[39;24m {#8907
+        [34mid[39m: [35m31[39m,
+        [34mname[39m: [32m"[39m[32mBossLady[39m[32m"[39m,
+      },
+    ],
+  }

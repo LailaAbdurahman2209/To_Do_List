@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use App\Models\Todo;
 use App\Mail\TaskReminderMail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class CheckUpcomingTasks extends Command
@@ -17,16 +16,15 @@ class CheckUpcomingTasks extends Command
     public function handle()
     {
         $now = Carbon::now();
-        $limit = $now->copy()->addMinutes(5);
+        $targetTime = $now->copy()->addMinutes(5);
 
         $tasks = Todo::where('email_sent', false)
-            ->where('scheduled_at', '<=', $limit)
-            ->where('scheduled_at', '>=', $now->copy()->subMinutes(1))
+            ->where('scheduled_at', '>=', $targetTime->copy()->subSeconds(30))
+            ->where('scheduled_at', '<=', $targetTime->copy()->addSeconds(30))
             ->get();
-
-        Log::info('Checking tasks for reminder', ['count' => $tasks->count(), 'target' => $limit]);
-
-        foreach ($tasks as $task) {
+        \Illuminate\Support\Facades\log::info('Checking tasks for reminder', ['count'] => $tasks->count(), 'target' => $targetTime]);
+        
+foreach ($tasks as $task) {
             if ($task->user && $task->user->email) {
                 Mail::to($task->user->email)->send(new TaskReminderMail($task));
                 
@@ -35,5 +33,4 @@ class CheckUpcomingTasks extends Command
                 $this->info("Reminder sent for task: " . $task->description);
             }
         }
-    }
-}
+    }}
