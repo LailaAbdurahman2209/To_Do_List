@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
 {
-    // 1. Show the list of Todos
+    // 1. Show the list of Todos (Updated to include unsent tasks)
     public function index()
     {
-        // Showing all tasks so you can see assignments
+        // Fetch all tasks with their assigned users for the main table
         $todos = Todo::with('user')->get(); 
-        return view('todos.index', compact('todos'));
+
+        // Fetch ONLY the tasks where the email has not been sent yet for the dropdown
+        $unsentTodos = Todo::where('email_sent', false)->get();
+
+        // Pass both variables to the index view
+        return view('todos.index', compact('todos', 'unsentTodos'));
     }
 
     // 2. Show the "Create" form

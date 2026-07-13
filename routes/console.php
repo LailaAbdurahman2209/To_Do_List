@@ -7,5 +7,4 @@ use Illuminate\Support\Facades\Schedule;
 
 
 
-// This will run once every minute, checking for tasks due within the next 5 minutes
 Schedule::command('tasks:check-upcoming')->everyMinute();
