@@ -71,6 +71,8 @@ class UserController extends Controller
             'email' => $user->email,
             'team_id' => $user->current_team_id
         ]);
+
+        
     }
 
     /**
