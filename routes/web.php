@@ -42,6 +42,9 @@ Route::middleware([
     // --- TO-DO LIST ROUTES ---
     // This allows your nav link to work
     Route::get('/todos', [TodoController::class, 'index'])->name('todos.index');
+
+
+    Route::get('/todos/{todo}/set-reminder/{minutes}', [App\Http\Controllers\TodoController::class, 'setReminder'])->name('todos.set-reminder');
     
     // This handles the form page and the saving of data
     Route::get('/todos/create', [TodoController::class, 'create'])->name('todos.create');

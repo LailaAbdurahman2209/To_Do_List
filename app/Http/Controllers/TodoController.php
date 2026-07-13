@@ -7,33 +7,25 @@ use App\Models\Todo;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class TodoController extends Controller
 {
-    // 1. Show the list of Todos (Updated to include unsent tasks)
     public function index()
     {
-        // Fetch all tasks with their assigned users for the main table
         $todos = Todo::with('user')->get(); 
-
-        // Fetch ONLY the tasks where the email has not been sent yet for the dropdown
         $unsentTodos = Todo::where('email_sent', false)->get();
-
-        // Pass both variables to the index view
         return view('todos.index', compact('todos', 'unsentTodos'));
     }
 
-    // 2. Show the "Create" form
     public function create()
     {
-        $users = User::all(); // Fetch users to populate the dropdown
+        $users = User::all();
         return view('todos.create', compact('users'));
     }
 
-    // 3. Save the Todo to the database
     public function store(Request $request)
     {
-        // Validation: Ensure the names here match your form inputs
         $request->validate([
             'description' => 'required|string|max:255',
             'user_id' => 'required|exists:users,id',
@@ -41,17 +33,45 @@ class TodoController extends Controller
         ]);
 
         try {
-            Todo::create([
-                'user_id' => $request->input('user_id'), // Assign to the selected user
+            $todo = Todo::create([
+                'user_id' => $request->input('user_id'),
                 'description' => $request->input('description'),
                 'scheduled_at' => Carbon::parse($request->input('scheduled_at')),
                 'email_sent' => false,
+                'reminder_minutes' => null, 
             ]);
 
-            return redirect()->route('todos.index')->with('success', 'Task added successfully!');
+            
+            $todo->load('user');
+
+            
+            Mail::send('emails.new_task', ['todo' => $todo], function ($message) use ($todo) {
+                $message->to($todo->user->email)
+                        ->subject('New Task Assigned: ' . $todo->description);
+            });
+
+            return redirect()->route('todos.index')->with('success', 'Task added and initial email sent!');
         } catch (\Exception $e) {
             Log::error('Error saving task: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Failed to save task: ' . $e->getMessage()]);
         }
+    }
+
+    
+    public function setReminder(Todo $todo, $minutes)
+    {
+        
+        $todo->update([
+            'reminder_minutes' => (int) $minutes
+        ]);
+
+        
+        return "
+            <div style='text-align: center; margin-top: 100px; font-family: sans-serif;'>
+                <h1 style='color: #2563eb;'>✔ Reminder Confirmed!</h1>
+                <p style='color: #4b5563; font-size: 18px;'>You will receive an email reminder <strong>{$minutes} minutes</strong> before this task is due.</p>
+                <a href='".route('todos.index')."' style='color: #2563eb; text-decoration: none;'>Go to To-Do List &rarr;</a>
+            </div>
+        ";
     }
 }

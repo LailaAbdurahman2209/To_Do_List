@@ -6,12 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    protected $fillable = ['user_id', 'description', 'scheduled_at', 'email_sent'];
+    // Added 'reminder_minutes' to allow mass-assignment
+    protected $fillable = [
+        'user_id', 
+        'description', 
+        'scheduled_at', 
+        'email_sent', 
+        'reminder_minutes'
+    ];
 
-    // This makes date and boolean handling automatic
+    // Added 'reminder_minutes' to automatic casting
     protected $casts = [
         'scheduled_at' => 'datetime',
         'email_sent' => 'boolean',
+        'reminder_minutes' => 'integer',
     ];
 
     public function user()

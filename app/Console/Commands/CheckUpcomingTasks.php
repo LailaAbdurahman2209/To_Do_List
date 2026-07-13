@@ -12,27 +12,38 @@ use Carbon\Carbon;
 class CheckUpcomingTasks extends Command
 {
     protected $signature = 'tasks:check-upcoming';
-    protected $description = 'Send email reminders for tasks starting in 5 minutes';
+    
+    
+    protected $description = 'Send custom email reminders based on user-selected timeframes';
 
     public function handle()
     {
         $now = Carbon::now();
-        $limit = $now->copy()->addMinutes(5);
 
-        $tasks = Todo::where('email_sent', false)
-            ->where('scheduled_at', '<=', $limit)
-            ->where('scheduled_at', '>=', $now->copy()->subMinutes(1))
+        
+        $tasks = Todo::with('user')
+            ->where('email_sent', false)
+            ->whereNotNull('reminder_minutes')
+            ->where('scheduled_at', '<=', $now->copy()->addMinutes(40))
             ->get();
 
-        Log::info('Checking tasks for reminder', ['count' => $tasks->count(), 'target' => $limit]);
+        Log::info('Checking tasks for custom reminders', ['count' => $tasks->count()]);
 
         foreach ($tasks as $task) {
-            if ($task->user && $task->user->email) {
-                Mail::to($task->user->email)->send(new TaskReminderMail($task));
-                
-                $task->update(['email_sent' => true]);
-                
-                $this->info("Reminder sent for task: " . $task->description);
+           
+            // Example: If task is at 12:20 and user chose 15 mins, target time is 12:05
+            $reminderTargetTime = $task->scheduled_at->copy()->subMinutes($task->reminder_minutes);
+
+            // If the current server time has hit or passed that calculated target time, fire!
+            if ($now->greaterThanOrEqualTo($reminderTargetTime)) {
+                if ($task->user && $task->user->email) {
+                    Mail::to($task->user->email)->send(new TaskReminderMail($task));
+                    
+                    
+                    $task->update(['email_sent' => true]);
+                    
+                    $this->info("Custom reminder sent for task: " . $task->description);
+                }
             }
         }
     }
