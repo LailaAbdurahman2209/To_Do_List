@@ -36,7 +36,12 @@
 							<td class="px-6 py-4 text-sm">{{ $user->currentTeam->name ?? 'Unassigned' }}</td>
 							@can('manage-operations')
 							<td class="px-6 py-4 text-right flex justify-end space-x-2">
-								<button onclick="editUser({{ $user->id }})" class="text-indigo-600 hover:text-indigo-900">Edit</button>
+								<button 
+									onclick="editUser({{ $user->id }})" 
+									class="inline-flex items-center justify-center px-4 py-1 border border-indigo-600 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 font-medium text-sm rounded-md "
+								>
+									Edit
+								</button>
 								<form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
 									@csrf @method('DELETE')
 									<button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
