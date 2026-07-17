@@ -18,15 +18,15 @@
         <style>
             body {
                 font-family: 'Plus Jakarta Sans', sans-serif;
-                background-color: #fafafa; /* Crisp, clean off-white */
+                background-color: #fafafa; 
             }
-            /* Make Jetstream cards look premium (No heavy dark shadows, just clean micro-borders) */
+            
             .bg-white {
                 border: 1px solid rgba(226, 232, 240, 0.8) !important;
                 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02) !important;
                 border-radius: 12px !important;
             }
-            /* Smooth focus rings for all inputs */
+            
             input, select, textarea {
                 border-radius: 8px !important;
                 border-color: #e2e8f0 !important;
@@ -36,7 +36,7 @@
                 border-color: #3b82f6 !important;
                 box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
             }
-            /* Make buttons look sharp and clickable */
+            
             button, .btn {
                 border-radius: 8px !important;
                 font-weight: 500 !important;
